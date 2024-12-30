@@ -128,7 +128,7 @@ class TestTextToNode(unittest.TestCase):
             TextNode("link", TextType.LINK, "https://boot.dev"),
         ]
         new_nodes = text_to_textnodes(text)
-        print(new_nodes)
+        # print(new_nodes)
         self.assertEqual(new_nodes, expected_nodes)
 
 
