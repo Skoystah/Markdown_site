@@ -19,7 +19,7 @@ def block_to_blocktype(markdown):
         return BlockType.HEADING.value
 
     lines = markdown.split("\n")
-
+    # TODO - refactor to not use regex
     if (
         re.match(r"^```", lines[0]) is not None
         and re.fullmatch(r"^.*```$", lines[len(lines) - 1]) is not None
