@@ -33,7 +33,9 @@ class TextNode:
                 )
             case TextType.IMAGE:
                 return LeafNode(
-                    tag="img", props={"src": text_node.url, "alt": text_node.text}
+                    tag="img",
+                    value="",
+                    props={"src": text_node.url, "alt": text_node.text},
                 )
             case _:
                 raise Exception("Text type not supported")

@@ -31,8 +31,7 @@ def block_to_html_node(block):
         case BlockType.ORDERED_LIST.value:
             return make_ordered_list(block)
         case _:
-            raise ValueError(
-                f"block not yet supported : {block_type} - {block}")
+            raise ValueError(f"block not yet supported : {block_type} - {block}")
 
 
 def text_to_children(text):
@@ -42,6 +41,18 @@ def text_to_children(text):
         htmlnodes.append(node.text_node_to_html_node())
 
     return htmlnodes
+
+
+# TODO - should this be here or in main?
+
+
+def extract_title(markdown):
+    lines = markdown.split("\n")
+
+    for line in lines:
+        if line.startswith("# "):
+            return line.lstrip("#").strip()
+    raise Exception("No header in markdown file")
 
 
 def make_heading_node(block):
@@ -113,7 +124,6 @@ def make_ordered_list(block):
     children = []
 
     for line in lines:
-        list_children = text_to_children(
-            line.lstrip(string.digits + ".").strip())
+        list_children = text_to_children(line.lstrip(string.digits + ".").strip())
         children.append(ParentNode("li", list_children))
     return ParentNode("ol", children)

@@ -1,7 +1,7 @@
 import unittest
 
 from parentnode import ParentNode
-from markdown_to_html import markdown_to_html
+from markdown_to_html import markdown_to_html, extract_title
 
 
 class TestMarkDownToHTML(unittest.TestCase):
@@ -17,7 +17,7 @@ With some more paragraph text
 """
         expected_html = "<div><h1>This is a heading level 1</h1><p>This is just some paragraph text</p><h2>This is heading level 2</h2><p>With some more paragraph text</p></div>"
         generated_node = markdown_to_html(md)
-        print(generated_node.to_html())
+        # print(generated_node.to_html())
         self.assertEqual(markdown_to_html(md).to_html(), expected_html)
 
     def test_markdown_to_html_list(self):
@@ -37,7 +37,7 @@ This is just some paragraph text
 """
         expected_html = "<div><h1>This is a heading level 1</h1><p>This is just some paragraph text</p><ul><li>Which is followed by a list</li><li>With no specific <code>order</code> in code</li></ul><h2>This is heading level 2</h2><ol><li>This has a list</li><li>Ordered with <b>numbers</b></li><li>From <i>one</i> to <i>three</i></li></ol></div>"
         generated_node = markdown_to_html(md)
-        print(generated_node.to_html())
+        # print(generated_node.to_html())
         self.assertEqual(markdown_to_html(md).to_html(), expected_html)
 
     def test_markdown_to_html_blockquote_code(self):
@@ -56,8 +56,19 @@ This is just some paragraph text
 """
         expected_html = "<div><h1>This is a heading level 1</h1><p>This is just some paragraph text</p><blockquote>Which includes a famous quote From a famous person Whose name I've forgotten</blockquote><h2>This is heading level 2</h2><pre><code> In this block there is some Javascript coding, handy </code></pre></div>"
         generated_node = markdown_to_html(md)
-        print(generated_node.to_html())
+        # print(generated_node.to_html())
         self.assertEqual(markdown_to_html(md).to_html(), expected_html)
+
+    def test_extract_title(self):
+        md = "# Hello"
+        expected_title = "Hello"
+
+        self.assertEqual(extract_title(md), expected_title)
+
+    def test_extract_title_none(self):
+        md = "Hello"
+        with self.assertRaises(Exception):
+            extract_title(md)
 
 
 if __name__ == "__main__":
